@@ -39,6 +39,7 @@ export function getPluginsList(
       imports: [
         // presets
         'vue',
+        'vue-i18n',
         'vue-router',
         'pinia',
         // custom
