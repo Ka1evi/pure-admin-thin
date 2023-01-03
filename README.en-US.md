@@ -1,10 +1,10 @@
-<h1>vue-pure-admin Lite Edition（no i18n version）</h1>
+<h1>vue-pure-admin Lite Edition（i18n version）</h1>
 
 [![license](https://img.shields.io/github/license/xiaoxian521/vue-pure-admin.svg)](LICENSE)
 
 **English** | [中文](./README.md)
 
-## Introduce
+## introduce
 
 The simplified version is based on the shelf extracted from [vue-pure-admin](https://github.com/xiaoxian521/vue-pure-admin), which contains main functions and is more suitable for actual project development. The packaged size is introduced globally [element-plus](https://element-plus.org) is still below `2.3MB`, and the full version of the code will be permanently synchronized. After enabling `brotli` compression and `cdn` to replace the local library mode, the package size is less than `350kb`
 

@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import Search from "./search/index.vue";
-import Notice from "./notice/index.vue";
-import mixNav from "./sidebar/mixNav.vue";
-import { useNav } from "@/layout/hooks/useNav";
-import Breadcrumb from "./sidebar/breadCrumb.vue";
-import topCollapse from "./sidebar/topCollapse.vue";
-import LogoutCircleRLine from "@iconify-icons/ri/logout-circle-r-line";
-import Setting from "@iconify-icons/ri/settings-3-line";
+import Search from './search/index.vue'
+import Notice from './notice/index.vue'
+import mixNav from './sidebar/mixNav.vue'
+import { useNav } from '@/layout/hooks/useNav'
+import Breadcrumb from './sidebar/breadCrumb.vue'
+import topCollapse from './sidebar/topCollapse.vue'
+import { useTranslationLang } from '../hooks/useTranslationLang'
+import globalization from '@/assets/svg/globalization.svg?component'
+import LogoutCircleRLine from '@iconify-icons/ri/logout-circle-r-line'
+import Setting from '@iconify-icons/ri/settings-3-line'
+import Check from '@iconify-icons/ep/check'
 
 const {
   layout,
@@ -16,8 +19,12 @@ const {
   pureApp,
   username,
   avatarsStyle,
-  toggleSideBar
-} = useNav();
+  toggleSideBar,
+  getDropdownItemStyle,
+  getDropdownItemClass
+} = useNav()
+
+const { t, locale, translationCh, translationEn } = useTranslationLang()
 </script>
 
 <template>
@@ -43,6 +50,38 @@ const {
       <Search />
       <!-- 通知 -->
       <Notice id="header-notice" />
+      <!-- 国际化 -->
+      <el-dropdown id="header-translation" trigger="click">
+        <globalization
+          class="navbar-bg-hover w-[40px] h-[48px] p-[11px] cursor-pointer outline-none"
+        />
+        <template #dropdown>
+          <el-dropdown-menu class="translation">
+            <el-dropdown-item
+              :style="getDropdownItemStyle(locale, 'zh')"
+              :class="['dark:!text-white', getDropdownItemClass(locale, 'zh')]"
+              @click="translationCh"
+            >
+              <IconifyIconOffline
+                class="check-zh"
+                v-show="locale === 'zh'"
+                :icon="Check"
+              />
+              简体中文
+            </el-dropdown-item>
+            <el-dropdown-item
+              :style="getDropdownItemStyle(locale, 'en')"
+              :class="['dark:!text-white', getDropdownItemClass(locale, 'en')]"
+              @click="translationEn"
+            >
+              <span class="check-en" v-show="locale === 'en'">
+                <IconifyIconOffline :icon="Check" />
+              </span>
+              English
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
       <!-- 退出登录 -->
       <el-dropdown trigger="click">
         <span class="el-dropdown-link navbar-bg-hover select-none">
@@ -59,14 +98,14 @@ const {
                 :icon="LogoutCircleRLine"
                 style="margin: 5px"
               />
-              退出系统
+              {{ t('buttons.hsLoginOut') }}
             </el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
       <span
         class="set-icon navbar-bg-hover"
-        title="打开项目配置"
+        :title="t('buttons.hssystemSet')"
         @click="onPanel"
       >
         <IconifyIconOffline :icon="Setting" />
@@ -120,6 +159,22 @@ const {
   .breadcrumb-container {
     float: left;
     margin-left: 16px;
+  }
+}
+
+.translation {
+  ::v-deep(.el-dropdown-menu__item) {
+    padding: 5px 40px;
+  }
+
+  .check-zh {
+    position: absolute;
+    left: 20px;
+  }
+
+  .check-en {
+    position: absolute;
+    left: 20px;
   }
 }
 

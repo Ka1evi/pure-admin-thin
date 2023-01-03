@@ -1,79 +1,86 @@
 <script setup lang="ts">
-import Motion from "./utils/motion";
-import { useRouter } from "vue-router";
-import { message } from "@/utils/message";
-import { loginRules } from "./utils/rule";
-import { initRouter } from "@/router/utils";
-import { useNav } from "@/layout/hooks/useNav";
-import type { FormInstance } from "element-plus";
-import { useLayout } from "@/layout/hooks/useLayout";
-import { useUserStoreHook } from "@/store/modules/user";
-import { bg, avatar, illustration } from "./utils/static";
-import { useRenderIcon } from "@/components/ReIcon/src/hooks";
-import { ref, reactive, toRaw, onMounted, onBeforeUnmount } from "vue";
-import { useDataThemeChange } from "@/layout/hooks/useDataThemeChange";
+import { useI18n } from 'vue-i18n'
+import Motion from './utils/motion'
+import { useRouter } from 'vue-router'
+import { message } from '@/utils/message'
+import { loginRules } from './utils/rule'
+import { initRouter } from '@/router/utils'
+import { useNav } from '@/layout/hooks/useNav'
+import type { FormInstance } from 'element-plus'
+import { $t, transformI18n } from '@/plugins/i18n'
+import { useLayout } from '@/layout/hooks/useLayout'
+import { useUserStoreHook } from '@/store/modules/user'
+import { bg, avatar, illustration } from './utils/static'
+import { useRenderIcon } from '@/components/ReIcon/src/hooks'
+import { ref, reactive, toRaw, onMounted, onBeforeUnmount } from 'vue'
+import { useTranslationLang } from '@/layout/hooks/useTranslationLang'
+import { useDataThemeChange } from '@/layout/hooks/useDataThemeChange'
 
-import dayIcon from "@/assets/svg/day.svg?component";
-import darkIcon from "@/assets/svg/dark.svg?component";
-import Lock from "@iconify-icons/ri/lock-fill";
-import User from "@iconify-icons/ri/user-3-fill";
+import dayIcon from '@/assets/svg/day.svg?component'
+import darkIcon from '@/assets/svg/dark.svg?component'
+import globalization from '@/assets/svg/globalization.svg?component'
+import Lock from '@iconify-icons/ri/lock-fill'
+import Check from '@iconify-icons/ep/check'
+import User from '@iconify-icons/ri/user-3-fill'
 
 defineOptions({
-  name: "Login"
-});
-const router = useRouter();
-const loading = ref(false);
-const ruleFormRef = ref<FormInstance>();
+  name: 'Login'
+})
+const router = useRouter()
+const loading = ref(false)
+const ruleFormRef = ref<FormInstance>()
 
-const { initStorage } = useLayout();
-initStorage();
+const { initStorage } = useLayout()
+initStorage()
 
-const { dataTheme, dataThemeChange } = useDataThemeChange();
-dataThemeChange();
-const { title } = useNav();
+const { t } = useI18n()
+const { dataTheme, dataThemeChange } = useDataThemeChange()
+dataThemeChange()
+const { title, getDropdownItemStyle, getDropdownItemClass } = useNav()
+const { locale, translationCh, translationEn } = useTranslationLang()
 
 const ruleForm = reactive({
-  username: "admin",
-  password: "admin123"
-});
+  username: 'admin',
+  password: 'admin123'
+})
 
 const onLogin = async (formEl: FormInstance | undefined) => {
-  loading.value = true;
-  if (!formEl) return;
+  loading.value = true
+  if (!formEl) return
   await formEl.validate((valid, fields) => {
     if (valid) {
       useUserStoreHook()
-        .loginByUsername({ username: ruleForm.username, password: "admin123" })
+        .loginByUsername({ username: ruleForm.username, password: 'admin123' })
         .then(res => {
           if (res.success) {
             // 获取后端路由
             initRouter().then(() => {
-              router.push("/");
-              message("登录成功", { type: "success" });
-            });
+              router.push('/')
+              message('登录成功', { type: 'success' })
+            })
           }
-        });
+        })
     } else {
-      loading.value = false;
-      return fields;
+      loading.value = false
+      return fields
     }
-  });
-};
+  })
+}
 
 /** 使用公共函数，避免`removeEventListener`失效 */
 function onkeypress({ code }: KeyboardEvent) {
-  if (code === "Enter") {
-    onLogin(ruleFormRef.value);
+  if (code === 'Enter') {
+    onLogin(ruleFormRef.value)
   }
 }
 
 onMounted(() => {
-  window.document.addEventListener("keypress", onkeypress);
-});
+  window.document.addEventListener('keypress', onkeypress)
+})
 
 onBeforeUnmount(() => {
-  window.document.removeEventListener("keypress", onkeypress);
-});
+  window.document.removeEventListener('keypress', onkeypress)
+})
 </script>
 
 <template>
@@ -88,6 +95,38 @@ onBeforeUnmount(() => {
         :inactive-icon="darkIcon"
         @change="dataThemeChange"
       />
+      <!-- 国际化 -->
+      <el-dropdown trigger="click">
+        <globalization
+          class="hover:text-primary hover:!bg-[transparent] w-[20px] h-[20px] ml-1.5 cursor-pointer outline-none duration-300"
+        />
+        <template #dropdown>
+          <el-dropdown-menu class="translation">
+            <el-dropdown-item
+              :style="getDropdownItemStyle(locale, 'zh')"
+              :class="['dark:!text-white', getDropdownItemClass(locale, 'zh')]"
+              @click="translationCh"
+            >
+              <IconifyIconOffline
+                class="check-zh"
+                v-show="locale === 'zh'"
+                :icon="Check"
+              />
+              简体中文
+            </el-dropdown-item>
+            <el-dropdown-item
+              :style="getDropdownItemStyle(locale, 'en')"
+              :class="['dark:!text-white', getDropdownItemClass(locale, 'en')]"
+              @click="translationEn"
+            >
+              <span class="check-en" v-show="locale === 'en'">
+                <IconifyIconOffline :icon="Check" />
+              </span>
+              English
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
     </div>
     <div class="login-container">
       <div class="img">
@@ -111,7 +150,7 @@ onBeforeUnmount(() => {
                 :rules="[
                   {
                     required: true,
-                    message: '请输入账号',
+                    message: transformI18n($t('login.usernameReg')),
                     trigger: 'blur'
                   }
                 ]"
@@ -120,7 +159,7 @@ onBeforeUnmount(() => {
                 <el-input
                   clearable
                   v-model="ruleForm.username"
-                  placeholder="账号"
+                  :placeholder="t('login.username')"
                   :prefix-icon="useRenderIcon(User)"
                 />
               </el-form-item>
@@ -132,7 +171,7 @@ onBeforeUnmount(() => {
                   clearable
                   show-password
                   v-model="ruleForm.password"
-                  placeholder="密码"
+                  :placeholder="t('login.password')"
                   :prefix-icon="useRenderIcon(Lock)"
                 />
               </el-form-item>
@@ -146,7 +185,7 @@ onBeforeUnmount(() => {
                 :loading="loading"
                 @click="onLogin(ruleFormRef)"
               >
-                登录
+                {{ t('login.login') }}
               </el-button>
             </Motion>
           </el-form>
@@ -157,11 +196,27 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-@import url("@/style/login.css");
+@import url('@/style/login.css');
 </style>
 
 <style lang="scss" scoped>
 :deep(.el-input-group__append, .el-input-group__prepend) {
   padding: 0;
+}
+
+.translation {
+  ::v-deep(.el-dropdown-menu__item) {
+    padding: 5px 40px;
+  }
+
+  .check-zh {
+    position: absolute;
+    left: 20px;
+  }
+
+  .check-en {
+    position: absolute;
+    left: 20px;
+  }
 }
 </style>

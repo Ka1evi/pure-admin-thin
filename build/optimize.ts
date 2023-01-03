@@ -5,27 +5,28 @@
  * 温馨提示：如果您使用的第三方库是全局引入，也就是引入到 src/main.ts 文件里，就不需要再添加到 include 里了，因为 vite 会自动将它们缓存到 node_modules/.vite
  */
 const include = [
-  "qs",
-  "mitt",
-  "dayjs",
-  "axios",
-  "pinia",
-  "echarts",
-  "js-cookie",
-  "@vueuse/core",
-  "@pureadmin/utils",
-  "responsive-storage",
-  "element-resize-detector"
-];
+  'qs',
+  'mitt',
+  'dayjs',
+  'axios',
+  'pinia',
+  'echarts',
+  'vue-i18n',
+  'js-cookie',
+  '@vueuse/core',
+  '@pureadmin/utils',
+  'responsive-storage',
+  'element-resize-detector'
+]
 
 /**
  * 在预构建中强制排除的依赖项
  * 温馨提示：所有以 `@iconify-icons/` 开头引入的的本地图标模块，都应该加入到下面的 `exclude` 里，因为平台推荐的使用方式是哪里需要哪里引入而且都是单个的引入，不需要预构建，直接让浏览器加载就好
  */
 const exclude = [
-  "@iconify-icons/ep",
-  "@iconify-icons/ri",
-  "@pureadmin/theme/dist/browser-utils"
-];
+  '@iconify-icons/ep',
+  '@iconify-icons/ri',
+  '@pureadmin/theme/dist/browser-utils'
+]
 
-export { include, exclude };
+export { include, exclude }

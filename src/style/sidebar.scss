@@ -229,6 +229,8 @@
       .search-container,
       /* 告警 */
       .dropdown-badge,
+      /* 国际化 */
+      .globalization,
       /* 用户名 */
       .el-dropdown-link,
       /* 设置 */
@@ -240,6 +242,15 @@
 
       .dropdown-badge {
         height: 48px;
+        color: $subMenuActiveText;
+      }
+
+      .globalization {
+        width: 40px;
+        height: 48px;
+        padding: 11px;
+        outline: none;
+        cursor: pointer;
         color: $subMenuActiveText;
       }
 
@@ -464,7 +475,7 @@
     width: 2px;
     height: 100%;
     background-color: $menuActiveBefore;
-    content: "";
+    content: '';
     clear: both;
     transition: all 0.125s ease-in-out;
     transform: translateY(0);
@@ -472,7 +483,7 @@
 
   .el-menu--collapse .outer-most.el-sub-menu > .el-sub-menu__title::before,
   .el-menu--collapse .submenu-title-noDropdown.outer-most::before {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     height: 0;
@@ -507,7 +518,7 @@
   }
 }
 
-body[layout="vertical"] {
+body[layout='vertical'] {
   $sideBarWidth: 210px;
   @include merge-style($sideBarWidth);
 
@@ -570,6 +581,8 @@ body[layout="vertical"] {
   .search-container,
   /* 告警 */
   .dropdown-badge,
+  /* 国际化 */
+  .globalization,
   /* 用户名 */
   .el-dropdown-link,
   /* 设置 */
@@ -580,7 +593,7 @@ body[layout="vertical"] {
   }
 }
 
-body[layout="horizontal"] {
+body[layout='horizontal'] {
   $sideBarWidth: 0;
   @include merge-style($sideBarWidth);
 
@@ -590,7 +603,7 @@ body[layout="horizontal"] {
   }
 }
 
-body[layout="mix"] {
+body[layout='mix'] {
   $sideBarWidth: 210px;
   @include merge-style($sideBarWidth);
 

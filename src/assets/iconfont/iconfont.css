@@ -1,12 +1,12 @@
 @font-face {
-  font-family: "iconfont"; /* Project id 2208059 */
-  src: url("iconfont.woff2?t=1638023560828") format("woff2"),
-    url("iconfont.woff?t=1638023560828") format("woff"),
-    url("iconfont.ttf?t=1638023560828") format("truetype");
+  font-family: 'iconfont'; /* Project id 2208059 */
+  src: url('iconfont.woff2?t=1638023560828') format('woff2'),
+    url('iconfont.woff?t=1638023560828') format('woff'),
+    url('iconfont.ttf?t=1638023560828') format('truetype');
 }
 
 .iconfont {
-  font-family: "iconfont" !important;
+  font-family: 'iconfont' !important;
   font-size: 16px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
@@ -14,25 +14,25 @@
 }
 
 .team-icontabs::before {
-  content: "\e63e";
+  content: '\e63e';
 }
 
 .team-iconlogo::before {
-  content: "\e620";
+  content: '\e620';
 }
 
 .team-iconxinpin::before {
-  content: "\e614";
+  content: '\e614';
 }
 
 .team-iconxinpinrenqiwang::before {
-  content: "\e615";
+  content: '\e615';
 }
 
 .team-iconexit-fullscreen::before {
-  content: "\e62a";
+  content: '\e62a';
 }
 
 .team-iconfullscreen::before {
-  content: "\e62b";
+  content: '\e62b';
 }
