@@ -6,6 +6,7 @@ import svgLoader from 'vite-svg-loader'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { viteMockServe } from 'vite-plugin-mock'
 import { configCompressPlugin } from './compress'
+import AutoImport from 'unplugin-auto-import/vite'
 // import ElementPlus from "unplugin-element-plus/vite";
 import { visualizer } from 'rollup-plugin-visualizer'
 import removeConsole from 'vite-plugin-remove-console'
@@ -28,6 +29,44 @@ export function getPluginsList(
       runtimeOnly: true,
       compositionOnly: true,
       include: [resolve('locales/**')]
+    }),
+    // https://github.com/antfu/unplugin-auto-import
+    AutoImport({
+      // targets to transform
+      include: [/\.[tj]sx?$/, /\.vue$/, /\.vue\?vue/, /\.md$/],
+
+      // global imports to register
+      imports: [
+        // presets
+        'vue',
+        'vue-router',
+        'pinia',
+        // custom
+        {
+          axios: [
+            // default imports
+            ['default', 'axios'] // import { default as axios } from 'axios',
+          ],
+          'vue/macros': [
+            // named imports
+            '$ref', // import { $ref } from 'vue/macros',
+            '$computed' // import { $computed } from 'vue/macros',
+          ]
+        }
+      ],
+
+      // Generate corresponding .eslintrc-auto-import.json file.
+      // eslint globals Docs - https://eslint.org/docs/user-guide/configuring/language-options#specifying-globals
+      eslintrc: {
+        enabled: false, // Default `false`
+        filepath: './.eslintrc-auto-import.json', // Default `./.eslintrc-auto-import.json`
+        globalsPropValue: true // Default `true`, (true | false | 'readonly' | 'readable' | 'writable' | 'writeable')
+      },
+
+      // Filepath to generate corresponding .d.ts file.
+      // Defaults to './auto-imports.d.ts' when `typescript` is installed locally.
+      // Set `false` to disable.
+      dts: './auto-imports.d.ts'
     }),
     // jsx、tsx语法支持
     vueJsx(),
