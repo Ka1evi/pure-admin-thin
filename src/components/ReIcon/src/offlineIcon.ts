@@ -5,10 +5,23 @@ import { addIcon } from '@iconify/vue/dist/offline'
  */
 
 // 本地菜单图标，后端在路由的icon中返回对应的图标字符串并且前端在此处使用addIcon添加即可渲染菜单图标
-import HomeFilled from '@iconify-icons/ep/home-filled'
+import HomeFilled from '@iconify-icons/ri/dashboard-3-line'
 import InformationLine from '@iconify-icons/ri/information-line'
 import Lollipop from '@iconify-icons/ep/lollipop'
-
+import FlUser from '@iconify-icons/ri/admin-line'
+import Role from '@iconify-icons/ri/admin-fill'
+import Setting from '@iconify-icons/ri/settings-3-line'
+import Menu from '@iconify-icons/ep/menu'
+import Dept from '@iconify-icons/ri/git-branch-line'
+import Card from '@iconify-icons/ri/bank-card-line'
+import ListCheck from '@iconify-icons/ri/list-check'
 addIcon('homeFilled', HomeFilled)
 addIcon('informationLine', InformationLine)
 addIcon('lollipop', Lollipop)
+addIcon('flUser', FlUser)
+addIcon('role', Role)
+addIcon('setting', Setting)
+addIcon('menu', Menu)
+addIcon('dept', Dept)
+addIcon('card', Card)
+addIcon('listCheck', ListCheck)

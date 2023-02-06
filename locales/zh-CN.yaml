@@ -26,9 +26,15 @@ menus:
   hshome: 首页
   hslogin: 登录
   hsabnormal: 异常页面
-  hsfourZeroFour: "404"
-  hsfourZeroOne: "403"
-  hsFive: "500"
+  hsfourZeroFour: '404'
+  hsfourZeroOne: '403'
+  hsFive: '500'
+  hsList: 列表页
+  hsListCard: 卡片列表页
+  hssysManagement: 系统管理
+  hsUser: 用户管理
+  hsRole: 角色管理
+  hsDept: 部门管理
   permission: 权限管理
   permissionPage: 页面权限
   permissionButton: 按钮权限

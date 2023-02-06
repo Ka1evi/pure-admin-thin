@@ -17,7 +17,7 @@ export function viteBuildInfo(): Plugin {
       outDir = resolvedConfig.build?.outDir ?? 'dist'
     },
     buildStart() {
-      console.log(bold(green(`🚀开始构建${blue('[vue-pure-admin]')}`)))
+      console.log(bold(green(`🚀开始构建${blue('[experiment-exam-web]')}`)))
       if (config.command === 'build') {
         startTime = dayjs(new Date())
       }

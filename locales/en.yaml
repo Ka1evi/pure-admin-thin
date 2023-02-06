@@ -26,9 +26,15 @@ menus:
   hshome: Home
   hslogin: Login
   hsabnormal: Abnormal Page
-  hsfourZeroFour: "404"
-  hsfourZeroOne: "403"
-  hsFive: "500"
+  hsfourZeroFour: '404'
+  hsfourZeroOne: '403'
+  hsFive: '500'
+  hssysManagement: System Manage
+  hsList: List Page
+  hsListCard: Card List Page
+  hsUser: User Manage
+  hsRole: Role Manage
+  hsDept: Dept Manage
   permission: Permission Manage
   permissionPage: Page Permission
   permissionButton: Button Permission

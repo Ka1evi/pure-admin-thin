@@ -45,7 +45,7 @@ function onChange() {
 <template>
   <el-space direction="vertical" size="large">
     <el-tag :style="elStyle" size="large" effect="dark">
-      模拟后台根据不同角色返回对应路由（具体参考完整版pure-admin代码）
+      模拟后台根据不同角色返回对应路由
     </el-tag>
     <el-card shadow="never" :style="elStyle">
       <template #header>
